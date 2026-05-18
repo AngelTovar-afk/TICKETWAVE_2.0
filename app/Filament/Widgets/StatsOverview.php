@@ -7,35 +7,35 @@ use App\Models\Order;
 use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Facades\Cache;
 
-/**
- * Widget del dashboard de administración.
- * Muestra métricas en tiempo real calculadas desde la BD.
- */
 class StatsOverview extends StatsOverviewWidget
 {
     protected function getStats(): array
     {
+        $stats = Cache::remember('dashboard_stats', 60, function () {
+            return [
+                'total_events'  => Event::count(),
+                'paid_orders'   => Order::where('status', 'confirmed')->count(),
+                'total_revenue' => Order::where('status', 'confirmed')->sum('total_amount'),
+                'total_users'   => User::count(),
+            ];
+        });
+
         return [
-            // Total de eventos registrados en la plataforma
-            Stat::make('Total de eventos', Event::count())
+            Stat::make('Total de eventos', $stats['total_events'])
                 ->description('Eventos registrados')
                 ->icon('heroicon-o-calendar'),
 
-            // Solo pedidos con status 'confirmed' cuentan como pagados
-            Stat::make('Pedidos pagados', Order::where('status', 'confirmed')->count())
+            Stat::make('Pedidos pagados', $stats['paid_orders'])
                 ->description('Órdenes confirmadas')
                 ->icon('heroicon-o-shopping-cart'),
 
-            // Suma de monto_total solo de pedidos confirmados
-            Stat::make('Ingresos totales', '$' . number_format(
-                Order::where('status', 'confirmed')->sum('total_amount'), 2
-            ))
+            Stat::make('Ingresos totales', '$' . number_format($stats['total_revenue'], 2))
                 ->description('De pedidos confirmados')
                 ->icon('heroicon-o-currency-dollar'),
 
-            // Total de usuarios registrados sin importar rol
-            Stat::make('Usuarios registrados', User::count())
+            Stat::make('Usuarios registrados', $stats['total_users'])
                 ->description('Compradores y organizadores')
                 ->icon('heroicon-o-users'),
         ];

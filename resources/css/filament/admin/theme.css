@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Fuente global */
+.fi-body,
+.fi-sidebar,
+.fi-topbar,
+.fi-main {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Fondo general */
+.fi-layout,
+.fi-body {
+    background-color: #051F20 !important;
+}
+
+/* Sidebar */
+.fi-sidebar-nav,
+aside.fi-sidebar {
+    background-color: #0A2424 !important;
+    border-right: 1px solid #0B2B26 !important;
+}
+
+/* Topbar */
+.fi-sidebar-header,
+header.fi-topbar,
+header.fi-topbar nav,
+.fi-topbar {
+    background-color: #0A2424 !important;
+    border-bottom: 1px solid #0B2B26 !important;
+}
+
+/* Barra de búsqueda */
+.fi-input,
+.fi-input-has-inline-prefix,
+.fi-global-search-field,
+.fi-global-search-field input,
+input[type="search"] {
+    background-color: #051F20 !important;
+    border-color: #163832 !important;
+    color: white !important;
+}
+
+/* Área de contenido */
+.fi-main {
+    background-color: #051F20 !important;
+}
+
+/* Texto del sidebar y topbar */
+.fi-sidebar-nav span,
+.fi-sidebar-nav a,
+.fi-topbar span,
+.fi-topbar a,
+.fi-topbar button,
+.fi-brand-name,
+.fi-sidebar-header span {
+    color: white !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Texto del contenido principal */
+.fi-main h1,
+.fi-main h2,
+.fi-main h3,
+.fi-main p,
+.fi-main span,
+.fi-main label {
+    color: white !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Tarjetas del dashboard */
+.fi-wi-stats-overview-stat {
+    background-color: #163832 !important;
+    border-color: #163832 !important;
+}
+
+.fi-wi-stats-overview-stat span,
+.fi-wi-stats-overview-stat p,
+.fi-wi-stats-overview-stat h3 {
+    color: white !important;
+}
+
+/* Item activo del sidebar */
+.fi-sidebar-item-active .fi-sidebar-item-button {
+    background-color: #235347 !important;
+    border-radius: 0.5rem !important;
+}
+
+/* Hover sidebar */
+.fi-sidebar-item-button:hover {
+    background-color: #163832 !important;
+    border-radius: 0.5rem !important;
+}
+
+/* Tablas */
+.fi-ta-ctn,
+.fi-ta-wrap,
+.fi-table-ctn {
+    background-color: #0B2B26 !important;
+    border-color: #163832 !important;
+}
+
+.fi-ta-header-ctn,
+thead,
+thead tr,
+thead th {
+    background-color: #051F20 !important;
+    color: white !important;
+    border-bottom-color: #235347 !important;
+}
+
+tbody tr {
+    background-color: #0B2B26 !important;
+    border-bottom-color: #163832 !important;
+}
+
+tbody tr:hover td {
+    background-color: #163832 !important;
+}
+
+tbody td,
+.fi-ta-cell {
+    color: white !important;
+    border-color: #163832 !important;
+}
+
+.fi-pagination,
+.fi-pagination nav {
+    background-color: #051F20 !important;
+    color: white !important;
+    border-top-color: #163832 !important;
+}
+
+.fi-pagination button,
+.fi-pagination span {
+    color: white !important;
+}
+
+.fi-pagination [aria-current="page"] {
+    background-color: #235347 !important;
+    color: white !important;
+}
+
+.fi-ta-header,
+.fi-ta-search-field input {
+    background-color: #051F20 !important;
+    color: white !important;
+    border-color: #163832 !important;
+}
+
+.fi-badge {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.fi-logo span[style] {
+    color: #7ADDA9 !important;
+}

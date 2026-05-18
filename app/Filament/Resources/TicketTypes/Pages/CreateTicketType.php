@@ -12,4 +12,8 @@ class CreateTicketType extends CreateRecord
   {
     return $this->getResource()::getUrl('index');
   }
+  protected function getCreatedNotificationTitle(): ?string
+  {
+    return 'Tipo de entrada creado correctamente';
+  }
 }

@@ -92,14 +92,24 @@ class TicketTypesTable
       ])
       ->recordActions([
         EditAction::make()->label('Editar'),
-        DeleteAction::make()->label('Eliminar'),
+        DeleteAction::make()
+          ->label('Eliminar')
+          ->modalHeading('¿Estás seguro?')
+          ->modalDescription('Esta acción no se puede deshacer. El registro será eliminado permanentemente.')
+          ->modalSubmitActionLabel('Sí, eliminar')
+          ->modalCancelActionLabel('Cancelar'),
       ])
       ->toolbarActions([
         ExportAction::make()
           ->label('Exportar')
           ->exporter(TicketTypeExporter::class),
         BulkActionGroup::make([
-          DeleteBulkAction::make()->label('Eliminar seleccionados'),
+          DeleteBulkAction::make()
+            ->label('Eliminar seleccionados')
+            ->modalHeading('¿Eliminar registros seleccionados?')
+            ->modalDescription('Esta acción no se puede deshacer. Los registros seleccionados serán eliminados permanentemente.')
+            ->modalSubmitActionLabel('Sí, eliminar todos')
+            ->modalCancelActionLabel('Cancelar'),
         ]),
       ])
       ->emptyStateHeading('Sin tipos de entrada')

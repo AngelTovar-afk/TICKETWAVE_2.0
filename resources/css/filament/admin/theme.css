@@ -166,3 +166,7 @@ tbody td,
 .fi-badge {
     font-family: 'Poppins', sans-serif !important;
 }
+
+.fi-logo span[style] {
+    color: #7ADDA9 !important;
+}

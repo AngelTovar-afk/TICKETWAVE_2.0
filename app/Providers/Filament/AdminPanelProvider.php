@@ -31,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->databaseNotificationsPolling('30s')
             ->registration(false)
             ->authGuard('web')
-            ->brandName(fn (): HtmlString => new HtmlString('<span style="color: #7ADDA9;">T</span>icketWave'))
+            ->brandName(fn (): \Illuminate\Support\HtmlString => new \Illuminate\Support\HtmlString('<span style="color:#7ADDA9">T</span>icketWave'))
             ->colors([
                 'primary' => [
                     50  => '#DAF1DE',

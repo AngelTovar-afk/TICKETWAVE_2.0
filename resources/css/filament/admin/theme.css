@@ -1,8 +1,3 @@
-@import '../../../../vendor/filament/filament/resources/css/theme.css';
-
-@source '../../../../app/Filament/**/*';
-@source '../../../../resources/views/filament/**/*';
-
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 /* Fuente global */
@@ -98,9 +93,7 @@ input[type="search"] {
     border-radius: 0.5rem !important;
 }
 
-/* ── Tablas ── */
-
-/* Fondo de la tabla y wrapper */
+/* Tablas */
 .fi-ta-ctn,
 .fi-ta-wrap,
 .fi-table-ctn {
@@ -108,7 +101,6 @@ input[type="search"] {
     border-color: #163832 !important;
 }
 
-/* Header de la tabla */
 .fi-ta-header-ctn,
 thead,
 thead tr,
@@ -118,25 +110,21 @@ thead th {
     border-bottom-color: #235347 !important;
 }
 
-/* Filas */
 tbody tr {
     background-color: #0B2B26 !important;
     border-bottom-color: #163832 !important;
 }
 
-/* Filas hover */
 tbody tr:hover td {
     background-color: #163832 !important;
 }
 
-/* Celdas */
 tbody td,
 .fi-ta-cell {
     color: white !important;
     border-color: #163832 !important;
 }
 
-/* Paginación */
 .fi-pagination,
 .fi-pagination nav {
     background-color: #051F20 !important;
@@ -154,7 +142,6 @@ tbody td,
     color: white !important;
 }
 
-/* Toolbar de la tabla (search + filtros) */
 .fi-ta-header,
 .fi-ta-search-field input {
     background-color: #051F20 !important;
@@ -162,7 +149,6 @@ tbody td,
     border-color: #163832 !important;
 }
 
-/* Badges de estado */
 .fi-badge {
     font-family: 'Poppins', sans-serif !important;
 }

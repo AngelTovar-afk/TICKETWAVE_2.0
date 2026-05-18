@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\MisBoletosController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,7 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::delete('/profile/avatar', [ProfileController::class, 'destroyAvatar'])->name('profile.avatar.destroy');
-    Route::get('/mis-boletos', fn() => view('dashboard'))->name('mis-boletos');
+    Route::get('/mis-boletos', [MisBoletosController::class, 'index'])->name('mis-boletos');
     Route::get('/favoritos',   fn() => view('dashboard'))->name('favoritos');
     Route::get('/ajustes',     fn() => view('dashboard'))->name('ajustes');
 });

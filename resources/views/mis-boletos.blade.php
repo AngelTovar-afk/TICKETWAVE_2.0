@@ -13,6 +13,7 @@
                 'cantidad'  => $item->quantity,
                 'precio'    => '$' . number_format($item->unit_price, 2),
                 'total'     => '$' . number_format($order->total_amount, 2),
+                'pago'      => $order->payment?->payment_method ?? 'Sin información',
             ]);
         }
     }
@@ -155,6 +156,10 @@
                                 <p style="font-size:12px; color:#7aab90;">
                                     <span style="color:#e8f5ee;">Total:</span>
                                     <span x-text="item.total"></span>
+                                </p>
+                                <p style="font-size:12px; color:#7aab90;">
+                                <span style="color:#e8f5ee;">Método de pago:</span>
+                                <span x-text="item.pago"></span>
                                 </p>
                             </div>
                         </div>

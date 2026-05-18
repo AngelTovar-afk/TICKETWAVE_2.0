@@ -8,12 +8,16 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditEvent extends EditRecord
 {
-    protected static string $resource = EventResource::class;
+  protected static string $resource = EventResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            DeleteAction::make(),
-        ];
-    }
+  protected function getHeaderActions(): array
+  {
+    return [
+      DeleteAction::make(),
+    ];
+  }
+  protected function getSavedNotificationTitle(): ?string
+  {
+    return 'Evento actualizado correctamente';
+  }
 }

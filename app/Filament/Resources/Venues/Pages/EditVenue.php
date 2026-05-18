@@ -8,12 +8,16 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditVenue extends EditRecord
 {
-    protected static string $resource = VenueResource::class;
+  protected static string $resource = VenueResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            DeleteAction::make(),
-        ];
-    }
+  protected function getHeaderActions(): array
+  {
+    return [
+      DeleteAction::make(),
+    ];
+  }
+  protected function getSavedNotificationTitle(): ?string
+  {
+    return 'Recinto actualizado correctamente';
+  }
 }

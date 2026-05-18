@@ -7,5 +7,9 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateVenue extends CreateRecord
 {
-    protected static string $resource = VenueResource::class;
+  protected static string $resource = VenueResource::class;
+  protected function getCreatedNotificationTitle(): ?string
+  {
+    return 'Recinto creado correctamente';
+  }
 }

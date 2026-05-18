@@ -22,88 +22,96 @@ use Filament\Tables\Table;
  */
 class VenuesTable
 {
-    public static function configure(Table $table): Table
-    {
-        return $table
-            ->columns([
-                TextColumn::make('name')
-                    ->label('Nombre')
-                    ->searchable()
-                    ->sortable(),
+  public static function configure(Table $table): Table
+  {
+    return $table
+      ->columns([
+        TextColumn::make('name')
+          ->label('Nombre')
+          ->searchable()
+          ->sortable(),
 
-                TextColumn::make('city')
-                    ->label('Ciudad')
-                    ->searchable()
-                    ->sortable(),
+        TextColumn::make('city')
+          ->label('Ciudad')
+          ->searchable()
+          ->sortable(),
 
-                TextColumn::make('state')
-                    ->label('Estado')
-                    ->searchable(),
+        TextColumn::make('state')
+          ->label('Estado')
+          ->searchable(),
 
-                TextColumn::make('country')
-                    ->label('País')
-                    ->searchable(),
+        TextColumn::make('country')
+          ->label('País')
+          ->searchable(),
 
-                TextColumn::make('capacity')
-                    ->label('Capacidad')
-                    ->numeric()
-                    ->sortable(),
+        TextColumn::make('capacity')
+          ->label('Capacidad')
+          ->numeric()
+          ->sortable(),
 
-                IconColumn::make('active')
-                    ->label('Activo')
-                    ->boolean(),
+        IconColumn::make('active')
+          ->label('Activo')
+          ->boolean(),
 
-                TextColumn::make('created_at')
-                    ->label('Creado')
-                    ->dateTime('d M Y H:i')
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->defaultSort('created_at', 'desc')
-            ->filters([
-                SelectFilter::make('active')
-                    ->label('Estado')
-                    ->options([
-                        '1' => 'Activo',
-                        '0' => 'Inactivo',
-                    ]),
-            ])
-            ->recordActions([
-                EditAction::make()->label('Editar'),
-                DeleteAction::make()
-                    ->label('Eliminar')
-                    ->before(function (Venue $record, $action) {
-                        if ($record->events()->exists()) {
-                            Notification::make()
-                                ->title('No se puede eliminar')
-                                ->body('Este recinto tiene eventos asociados.')
-                                ->danger()
-                                ->send();
-                            $action->cancel();
-                        }
-                    }),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make()
-                        ->label('Eliminar seleccionados')
-                        ->before(function ($records, $action) {
-                            foreach ($records as $record) {
-                                if ($record->events()->exists()) {
-                                    Notification::make()
-                                        ->title('No se puede eliminar')
-                                        ->body("El recinto '{$record->name}' tiene eventos asociados.")
-                                        ->danger()
-                                        ->send();
-                                    $action->cancel();
-                                    return;
-                                }
-                            }
-                        }),
-                ]),
-            ])
-            ->emptyStateHeading('Sin recintos')
-            ->emptyStateDescription('Crea el primer recinto.')
-            ->emptyStateIcon('heroicon-o-map-pin');
-    }
+        TextColumn::make('created_at')
+          ->label('Creado')
+          ->dateTime('d M Y H:i')
+          ->sortable()
+          ->toggleable(isToggledHiddenByDefault: true),
+      ])
+      ->defaultSort('created_at', 'desc')
+      ->filters([
+        SelectFilter::make('active')
+          ->label('Estado')
+          ->options([
+            '1' => 'Activo',
+            '0' => 'Inactivo',
+          ]),
+      ])
+      ->recordActions([
+        EditAction::make()->label('Editar'),
+        DeleteAction::make()
+          ->label('Eliminar')
+          ->modalHeading('¿Estás seguro?')
+          ->modalDescription('Esta acción no se puede deshacer. El registro será eliminado permanentemente.')
+          ->modalSubmitActionLabel('Sí, eliminar')
+          ->modalCancelActionLabel('Cancelar')
+          ->before(function (Venue $record, $action) {
+            if ($record->events()->exists()) {
+              Notification::make()
+                ->title('No se puede eliminar')
+                ->body('Este recinto tiene eventos asociados.')
+                ->danger()
+                ->send();
+              $action->cancel();
+            }
+          }),
+      ])
+      ->toolbarActions([
+        BulkActionGroup::make([
+          DeleteBulkAction::make()
+            ->label('Eliminar seleccionados')
+            ->modalHeading('¿Eliminar registros seleccionados?')
+            ->modalDescription('Esta acción no se puede deshacer. Los registros seleccionados serán eliminados permanentemente.')
+            ->modalSubmitActionLabel('Sí, eliminar todos')
+            ->modalCancelActionLabel('Cancelar')
+            ->before(function ($records, $action) {
+              foreach ($records as $record) {
+                if ($record->events()->exists()) {
+                  Notification::make()
+                    ->title('No se puede eliminar')
+                    ->body("El recinto '{$record->name}' tiene eventos asociados.")
+                    ->danger()
+                    ->send();
+                  $action->cancel();
+                  return;
+                }
+              }
+            }),
+        ]),
+      ])
+      ->emptyStateHeading('Sin recintos')
+      ->emptyStateDescription('Crea el primer recinto.')
+      ->emptyStateIcon('heroicon-o-map-pin');
+  }
 }

@@ -72,6 +72,10 @@ class UsersTable
         EditAction::make()->label('Editar'),
         DeleteAction::make()
           ->label('Eliminar')
+          ->modalHeading('¿Estás seguro?')
+          ->modalDescription('Esta acción no se puede deshacer. El registro será eliminado permanentemente.')
+          ->modalSubmitActionLabel('Sí, eliminar')
+          ->modalCancelActionLabel('Cancelar')
           ->hidden(fn($record): bool => $record->id === Auth::id())
       ])
       ->toolbarActions([
@@ -81,6 +85,10 @@ class UsersTable
         BulkActionGroup::make([
           DeleteBulkAction::make()
             ->label('Eliminar seleccionados')
+            ->modalHeading('¿Eliminar registros seleccionados?')
+            ->modalDescription('Esta acción no se puede deshacer. Los registros seleccionados serán eliminados permanentemente.')
+            ->modalSubmitActionLabel('Sí, eliminar todos')
+            ->modalCancelActionLabel('Cancelar')
             ->action(function (Collection $records): void {
               $records
                 ->reject(fn($record) => $record->id === Auth::id())

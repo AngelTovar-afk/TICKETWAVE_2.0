@@ -18,4 +18,8 @@ class CreateUser extends CreateRecord
     $data['email_verified_at'] = Carbon::now();
     return $data;
   }
+  protected function getCreatedNotificationTitle(): ?string
+  {
+    return 'Usuario creado correctamente';
+  }
 }

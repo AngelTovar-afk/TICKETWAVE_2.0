@@ -7,5 +7,9 @@ use Filament\Resources\Pages\CreateRecord;
 
 class CreateEvent extends CreateRecord
 {
-    protected static string $resource = EventResource::class;
+  protected static string $resource = EventResource::class;
+  protected function getCreatedNotificationTitle(): ?string
+  {
+    return 'Evento creado correctamente';
+  }
 }

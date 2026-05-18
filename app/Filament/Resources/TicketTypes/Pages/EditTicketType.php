@@ -20,4 +20,8 @@ class EditTicketType extends EditRecord
   {
     return $this->getResource()::getUrl('index');
   }
+  protected function getSavedNotificationTitle(): ?string
+  {
+    return 'Tipo de entrada actualizado correctamente';
+  }
 }

@@ -18,6 +18,11 @@ class CheckoutWizard extends Component
   public string $paymentMethod = 'tarjeta';
   public ?int $orderId = null;
   public ?string $errorMessage = null;
+  public string $cardName   = '';
+  public string $cardNumber = '';
+  public string $cardBank   = '';
+  public string $cardExpiry = '';
+  public string $cardCvv    = '';
 
   public function mount(Event $evento): void
   {

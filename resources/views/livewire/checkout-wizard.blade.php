@@ -151,17 +151,187 @@
     <div class="bg-[#0B2B26] border border-[#235347] rounded-xl p-5 mb-6">
       <h3 class="text-white font-semibold mb-4">Método de pago</h3>
       <div class="flex flex-col gap-3">
-        @foreach(['tarjeta' => '💳 Tarjeta de crédito / débito', 'transferencia' => '🏦 Transferencia bancaria', 'efectivo' => '💵 Pago en efectivo'] as $value => $label)
-        <label class="flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition
-        {{ $paymentMethod === $value ? 'border-[#83D5AB] bg-[#83D5AB]/10' : 'border-[#235347] hover:border-[#83D5AB]/50' }}">
-          <input type="radio"
-            wire:model.live="paymentMethod"
-            name="paymentMethod" {{-- ← agrega esto --}}
-            value="{{ $value }}"
-            class="accent-[#83D5AB]">
-          <span class="text-white text-sm">{{ $label }}</span>
-        </label>
-        @endforeach
+
+        {{-- Tarjeta --}}
+        <div class="rounded-lg border overflow-hidden transition
+            {{ $paymentMethod === 'tarjeta' ? 'border-[#83D5AB]' : 'border-[#235347]' }}">
+
+          <label class="flex items-center gap-3 p-4 cursor-pointer
+                {{ $paymentMethod === 'tarjeta' ? 'bg-[#83D5AB]/10' : 'hover:bg-[#235347]/30' }}">
+            <input type="radio" wire:model.live="paymentMethod"
+              name="paymentMethod" value="tarjeta" class="accent-[#83D5AB]">
+            <div class="flex-1">
+              <p class="text-white text-sm font-semibold">Tarjeta de crédito o débito</p>
+              <p class="text-[#83D5AB] text-xs mt-0.5">Pago a meses con bancos participantes</p>
+            </div>
+            {{-- Logos VISA / MC --}}
+            <div class="flex gap-2">
+              <div class="bg-white rounded px-2 py-1 text-xs font-bold text-blue-700">VISA</div>
+              <div class="bg-[#1a1a1a] rounded px-2 py-1 text-xs font-bold text-white flex items-center gap-1">
+                <span class="w-3 h-3 rounded-full bg-red-500 opacity-90 inline-block -mr-1"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500 opacity-90 inline-block"></span>
+              </div>
+            </div>
+          </label>
+
+          {{-- Formulario de tarjeta --}}
+          @if($paymentMethod === 'tarjeta')
+          <div class="px-5 pb-5 border-t border-[#235347] pt-4 grid grid-cols-2 gap-4">
+
+            <div class="flex flex-col gap-1">
+              <label class="text-[#8EB69B] text-xs">Titular de la cuenta</label>
+              <input type="text" wire:model="cardName"
+                placeholder="Juan Pérez"
+                class="bg-transparent border border-[#235347] rounded-lg px-3 py-2 text-white text-sm
+                                   placeholder-[#8EB69B]/50 focus:outline-none focus:border-[#83D5AB] transition">
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <label class="text-[#8EB69B] text-xs">Número de tarjeta</label>
+              <input type="text" wire:model="cardNumber"
+                placeholder="1230 4560 7890 9875"
+                maxlength="19"
+                class="bg-transparent border border-[#235347] rounded-lg px-3 py-2 text-white text-sm
+                                   placeholder-[#8EB69B]/50 focus:outline-none focus:border-[#83D5AB] transition">
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <label class="text-[#8EB69B] text-xs">Institución bancaria</label>
+              <input type="text" wire:model="cardBank"
+                placeholder="BBVA"
+                class="bg-transparent border border-[#235347] rounded-lg px-3 py-2 text-white text-sm
+                                   placeholder-[#8EB69B]/50 focus:outline-none focus:border-[#83D5AB] transition">
+            </div>
+
+            <div class="flex gap-3">
+              <div class="flex flex-col gap-1 flex-1">
+                <label class="text-[#8EB69B] text-xs">Vencimiento</label>
+                <input type="text" wire:model="cardExpiry"
+                  placeholder="12/32"
+                  maxlength="5"
+                  class="bg-transparent border border-[#235347] rounded-lg px-3 py-2 text-white text-sm
+                                       placeholder-[#8EB69B]/50 focus:outline-none focus:border-[#83D5AB] transition">
+              </div>
+              <div class="flex flex-col gap-1 w-24">
+                <label class="text-[#8EB69B] text-xs">CVV</label>
+                <input type="password" wire:model="cardCvv"
+                  placeholder="••••"
+                  maxlength="4"
+                  class="bg-transparent border border-[#235347] rounded-lg px-3 py-2 text-white text-sm
+                                       placeholder-[#8EB69B]/50 focus:outline-none focus:border-[#83D5AB] transition">
+              </div>
+            </div>
+
+          </div>
+          @endif
+        </div>
+
+        {{-- Transferencia --}}
+        <div class="rounded-lg border overflow-hidden transition
+    {{ $paymentMethod === 'transferencia' ? 'border-[#83D5AB]' : 'border-[#235347]' }}">
+
+          <label class="flex items-center gap-3 p-4 cursor-pointer
+        {{ $paymentMethod === 'transferencia' ? 'bg-[#83D5AB]/10' : 'hover:bg-[#235347]/30' }}">
+            <input type="radio" wire:model.live="paymentMethod"
+              name="paymentMethod" value="transferencia" class="accent-[#83D5AB]">
+            <div>
+              <p class="text-white text-sm font-semibold">🏦 Transferencia bancaria</p>
+              <p class="text-[#8EB69B] text-xs mt-0.5">Transfiere el total y envía tu comprobante</p>
+            </div>
+          </label>
+
+          @if($paymentMethod === 'transferencia')
+          <div class="px-5 pb-5 border-t border-[#235347] pt-4 flex flex-col gap-3">
+            <p class="text-[#8EB69B] text-xs uppercase font-semibold tracking-wider">
+              Datos para transferir
+            </p>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="bg-[#051F20] rounded-lg p-3">
+                <p class="text-[#8EB69B] text-xs mb-1">Banco</p>
+                <p class="text-white text-sm font-semibold">BBVA</p>
+              </div>
+              <div class="bg-[#051F20] rounded-lg p-3">
+                <p class="text-[#8EB69B] text-xs mb-1">Titular</p>
+                <p class="text-white text-sm font-semibold">TicketWave S.A.</p>
+              </div>
+              <div class="bg-[#051F20] rounded-lg p-3 col-span-2">
+                <p class="text-[#8EB69B] text-xs mb-1">CLABE interbancaria</p>
+                <p class="text-white text-sm font-semibold tracking-wider">0121 8000 1234 5678 90</p>
+              </div>
+              <div class="bg-[#051F20] rounded-lg p-3 col-span-2">
+                <p class="text-[#8EB69B] text-xs mb-1">Concepto de transferencia</p>
+                <p class="text-[#83D5AB] text-sm font-semibold">
+                  TW-{{ auth()->id() }}-{{ $evento->id }}
+                </p>
+              </div>
+            </div>
+            <p class="text-[#8EB69B] text-xs mt-1">
+              ⚠️ Usa exactamente el concepto indicado para que podamos identificar tu pago.
+              Tu orden se confirmará en un plazo de 24 horas hábiles.
+            </p>
+          </div>
+          @endif
+        </div>
+
+        {{-- Efectivo --}}
+        <div class="rounded-lg border overflow-hidden transition
+    {{ $paymentMethod === 'efectivo' ? 'border-[#83D5AB]' : 'border-[#235347]' }}">
+
+          <label class="flex items-center gap-3 p-4 cursor-pointer
+        {{ $paymentMethod === 'efectivo' ? 'bg-[#83D5AB]/10' : 'hover:bg-[#235347]/30' }}">
+            <input type="radio" wire:model.live="paymentMethod"
+              name="paymentMethod" value="efectivo" class="accent-[#83D5AB]">
+            <div>
+              <p class="text-white text-sm font-semibold">💵 Pago en efectivo</p>
+              <p class="text-[#8EB69B] text-xs mt-0.5">Paga en tiendas de conveniencia con tu referencia</p>
+            </div>
+          </label>
+
+          @if($paymentMethod === 'efectivo')
+          <div class="px-5 pb-5 border-t border-[#235347] pt-4 flex flex-col gap-3">
+            <p class="text-[#8EB69B] text-xs uppercase font-semibold tracking-wider">
+              Instrucciones de pago
+            </p>
+
+            {{-- Referencia --}}
+            <div class="bg-[#051F20] rounded-lg p-4 text-center">
+              <p class="text-[#8EB69B] text-xs mb-1">Tu número de referencia</p>
+              <p class="text-[#83D5AB] text-2xl font-bold tracking-widest">
+                {{ str_pad(auth()->id(), 4, '0', STR_PAD_LEFT) }}
+                {{ str_pad($evento->id, 4, '0', STR_PAD_LEFT) }}
+                {{ str_pad((int)$this->subtotal, 6, '0', STR_PAD_LEFT) }}
+              </p>
+              <p class="text-[#8EB69B] text-xs mt-2">
+                Válido por <span class="text-white font-semibold">48 horas</span>
+              </p>
+            </div>
+
+            {{-- Pasos --}}
+            <div class="flex flex-col gap-2">
+              @foreach([
+              '1' => 'Ve a cualquier OXXO, 7-Eleven o Farmacias del Ahorro.',
+              '2' => 'Indica al cajero que harás un pago de servicio.',
+              '3' => 'Proporciona tu número de referencia.',
+              '4' => 'Paga $' . number_format($this->subtotal, 2) . ' en efectivo y guarda tu ticket.',
+              ] as $num => $texto)
+              <div class="flex items-start gap-3">
+                <span class="w-5 h-5 rounded-full bg-[#235347] text-[#83D5AB] text-xs
+                                     flex items-center justify-center flex-shrink-0 mt-0.5">
+                  {{ $num }}
+                </span>
+                <p class="text-[#8EB69B] text-sm">{{ $texto }}</p>
+              </div>
+              @endforeach
+            </div>
+
+            <p class="text-[#8EB69B] text-xs mt-1">
+              ⚠️ Tu orden se confirmará automáticamente al recibir el pago.
+              Si no pagas en 48 horas, los boletos se liberarán.
+            </p>
+          </div>
+          @endif
+        </div>
+
       </div>
     </div>
 
@@ -220,7 +390,7 @@
 
   {{-- ── Sidebar (derecha) — solo pasos 1 y 2 ── --}}
   @if($step < 3)
-    <div class="w-full lg:w-80 flex-shrink-0 flex flex-col gap-4 lg:sticky lg:top-24">
+    <div class="w-full lg:w-80 flex-shrink-0 flex flex-col gap-4 lg:sticky lg:top-24 lg:mt-16">
 
     {{-- Boletos disponibles --}}
     <div class="bg-[#0B2B26] border border-[#235347] rounded-xl overflow-hidden">

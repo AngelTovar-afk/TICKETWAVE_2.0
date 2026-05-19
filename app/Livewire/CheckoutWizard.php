@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
+use App\Notifications\TicketPurchasedNotification;
+use App\Models\Payment;
 
 class CheckoutWizard extends Component
 {
@@ -141,9 +143,19 @@ class CheckoutWizard extends Component
 
           $tipo->increment('quantity_sold', $qty);
         }
+        Payment::create([
+          'order_id'       => $order->id,
+          'payment_method' => $this->paymentMethod,
+          'status'         => 'pending',
+        ]);
 
         $this->orderId = $order->id;
       });
+      /** @var \App\Models\User $user */
+      $user = Auth::user();
+      $user->notify(new TicketPurchasedNotification(
+        Order::find($this->orderId)
+      ));
 
       $this->step = 3;
     } catch (\Exception $e) {

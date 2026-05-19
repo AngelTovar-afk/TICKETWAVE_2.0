@@ -1,16 +1,23 @@
-# ─────────────────────────────────────────────────────────────────────────────
-# Dockerfile — TicketWave / Laravel
-# Imagen de desarrollo local (no es la de producción)
-# ─────────────────────────────────────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────────
+# Stage 1 — Build de assets con Node
+# ─────────────────────────────────────────────────────────────────
+FROM node:20-alpine AS assets
 
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# ─────────────────────────────────────────────────────────────────
+# Stage 2 — Imagen de producción
+# ─────────────────────────────────────────────────────────────────
 FROM php:8.3-fpm
 
-# ─── Variables de construcción ───────────────────────────────────────────────
-ARG user=ticketwave
-ARG uid=1000
-
-# ─── Dependencias del sistema ────────────────────────────────────────────────
+# ─── Dependencias del sistema ─────────────────────────────────────
 RUN apt-get update && apt-get install -y \
+  nginx \
+  supervisor \
   git \
   curl \
   libpng-dev \
@@ -24,12 +31,7 @@ RUN apt-get update && apt-get install -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
-# ─── Node.js y npm (requerido por Laravel Vite / Filament) ─────────────────
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-  && apt-get install -y nodejs \
-  && npm install -g npm@latest
-
-# ─── Extensiones PHP necesarias para Laravel ─────────────────────────────────
+# ─── Extensiones PHP ──────────────────────────────────────────────
 RUN docker-php-ext-install \
   pdo_mysql \
   mbstring \
@@ -41,15 +43,32 @@ RUN docker-php-ext-install \
   intl \
   sodium
 
-# ─── Composer ────────────────────────────────────────────────────────────────
+# ─── Composer ─────────────────────────────────────────────────────
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
-# ─── Usuario no-root (evita problemas de permisos en el host) ────────────────
-RUN useradd -G www-data,root -u $uid -d /home/$user $user \
-  && mkdir -p /home/$user/.composer \
-  && chown -R $user:$user /home/$user
-
-# ─── Directorio de trabajo ───────────────────────────────────────────────────
+# ─── Código fuente ────────────────────────────────────────────────
 WORKDIR /var/www
 
-USER $user
+COPY . .
+
+# Assets compilados desde stage 1
+COPY --from=assets /app/public/build ./public/build
+
+# ─── Dependencias PHP (sin dev) ───────────────────────────────────
+RUN composer install --no-dev --optimize-autoloader --no-interaction
+
+# ─── Permisos ─────────────────────────────────────────────────────
+RUN chown -R www-data:www-data /var/www \
+  && chmod -R 755 /var/www/storage \
+  && chmod -R 755 /var/www/bootstrap/cache
+
+# ─── Configuraciones ──────────────────────────────────────────────
+COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/php/local.ini /usr/local/etc/php/conf.d/local.ini
+COPY docker/start.sh /start.sh
+RUN chmod +x /start.sh
+
+EXPOSE 80
+
+CMD ["/start.sh"]

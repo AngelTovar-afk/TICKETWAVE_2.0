@@ -38,11 +38,11 @@
 
         {{-- Cards estadísticas --}}
         <div class="grid grid-cols-2 gap-4 mb-6" style="margin-top:24px; padding:0 24px;">
-            <div class="rounded-2xl" style="background:#122b20; border:1px solid #1e4a32; padding:28px 28px 32px;">
+            <div class="rounded-2xl" style="background:#051F20; border:1px solid #1e4a32; padding:28px 28px 32px;">
                 <p style="color:#7aab90; font-size:15px; font-weight:500; margin-bottom:12px;">Boletos activos</p>
                 <p style="color:#7fffc4; font-size:36px; font-weight:700; line-height:1;">{{ $boletosActivos }}</p>
             </div>
-            <div class="rounded-2xl" style="background:#122b20; border:1px solid #1e4a32; padding:28px 28px 32px;">
+            <div class="rounded-2xl" style="background:#051F20; border:1px solid #1e4a32; padding:28px 28px 32px;">
                 <p style="color:#7aab90; font-size:15px; font-weight:500; margin-bottom:12px;">Total gastado</p>
                 <p style="color:#e8f5ee; font-size:36px; font-weight:700; line-height:1;">${{ number_format($totalGastado, 0) }}</p>
                 <p style="color:#7aab90; font-size:11px; margin-top:10px; font-family:monospace; letter-spacing:.08em;">este mes</p>
@@ -50,7 +50,7 @@
         </div>
 
         {{-- Próximos eventos --}}
-        <div class="rounded-2xl overflow-hidden" style="background:#122b20; border:1px solid #1e4a32; margin:0 24px 24px;">
+        <div class="rounded-2xl overflow-hidden" style="background:#051F20; border:1px solid #1e4a32; margin:0 24px 24px;">
             <div style="padding:24px 32px; border-bottom:1px solid #1e4a32;">
                 <h2 style="color:#e8f5ee; font-size:20px; font-weight:600;">Próximos eventos</h2>
             </div>
@@ -60,7 +60,7 @@
                     <p class="text-3xl mb-3">🎫</p>
                     <p class="font-semibold mb-1" style="color:#e8f5ee;">Aún no tienes boletos activos</p>
                     <p class="text-sm mb-5" style="color:#7aab90;">Explora los eventos disponibles y compra tus entradas</p>
-                    <a href="{{ url('/') }}" class="inline-block px-6 py-2 rounded-lg font-semibold text-sm" style="background:#7fffc4; color:#0d2a1f;">
+                    <a href="{{ url('/eventos') }}" class="inline-block px-6 py-2 rounded-lg font-semibold text-sm" style="background:#7fffc4; color:#0d2a1f;">
                         Ver eventos
                     </a>
                 </div>
@@ -68,7 +68,7 @@
 
             <div style="padding:16px 20px; display:flex; flex-direction:column; gap:10px;">
                 <template x-for="(item, i) in proximos.slice(0, 3)" :key="i">
-                    <div class="flex items-center gap-4" style="background:#0a2018; border:1px solid #1e4a32; border-radius:12px; padding:16px 20px;">
+                    <div class="flex items-center gap-4" style="background:#051F20; border:1px solid #1e4a32; border-radius:12px; padding:16px 20px;">
                         <div style="width:56px; height:56px; min-width:56px; background:#1a3d2e; border-radius:10px; display:flex; align-items:center; justify-content:center;">
                             <svg style="width:28px; height:28px; color:#7fffc4;" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>
@@ -119,7 +119,7 @@
             @endforeach
         </div>
 
-        <div class="rounded-2xl overflow-hidden" style="background:#122b20; border:1px solid #1e4a32; margin:0 24px;">
+        <div class="rounded-2xl overflow-hidden" style="background:#051F20; border:1px solid #1e4a32; margin:0 24px;">
 
             <template x-if="itemsFiltrados.length === 0">
                 <div class="px-8 py-16 text-center">
@@ -133,8 +133,8 @@
                 <template x-for="(item, i) in itemsFiltrados" :key="i">
                     <div class="flex items-center gap-4"
                          :style="item.status === 'cancelled'
-                             ? 'background:#0a2018; border:1px solid #1e4a32; border-radius:12px; padding:16px 20px; opacity:0.5;'
-                             : 'background:#0a2018; border:1px solid #1e4a32; border-radius:12px; padding:16px 20px;'">
+                             ? 'background:#051F20; border:1px solid #1e4a32; border-radius:12px; padding:16px 20px; opacity:0.5;'
+                             : 'background:#051F20; border:1px solid #1e4a32; border-radius:12px; padding:16px 20px;'">
                         <div style="width:56px; height:56px; min-width:56px; background:#1a3d2e; border-radius:10px; display:flex; align-items:center; justify-content:center;">
                             <svg style="width:28px; height:28px; color:#7fffc4;" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>
@@ -158,8 +158,8 @@
                                     <span x-text="item.total"></span>
                                 </p>
                                 <p style="font-size:12px; color:#7aab90;">
-                                <span style="color:#e8f5ee;">Método de pago:</span>
-                                <span x-text="item.pago"></span>
+                                    <span style="color:#e8f5ee;">Método de pago:</span>
+                                    <span x-text="item.pago"></span>
                                 </p>
                             </div>
                         </div>

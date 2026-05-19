@@ -35,7 +35,9 @@
                 </div>
                 <div class="p-4">
                     <h3 class="text-white font-semibold text-lg mb-1">{{ $evento->name }}</h3>
-                    <p class="text-[#8EB69B] text-sm mb-2">{{ $evento->event_date ? \Carbon\Carbon::parse($evento->event_date)->format('d M Y') : 'Fecha por confirmar' }}</p>
+                    <p class="text-[#8EB69B] text-sm mb-2">
+                        {{ $evento->event_date ? \Carbon\Carbon::parse($evento->event_date)->format('d M Y') : 'Fecha por confirmar' }}
+                    </p>
                     <p class="text-[#83D5AB] font-semibold mb-4">
                         @if($evento->ticketTypes->isNotEmpty())
                             Desde ${{ number_format($evento->ticketTypes->min('price'), 2) }}
@@ -44,9 +46,10 @@
                         @endif
                     </p>
                     @if($evento->ticketTypes->sum('quantity_available') > 0)
-                        <button class="w-full bg-[#8EDBB1] text-[#051F20] py-2 rounded-lg font-semibold hover:bg-[#83D5AB] transition">
-                            Comprar
-                        </button>
+                        <a href="{{ route('eventos.show', $evento) }}"
+                           class="block w-full bg-[#8EDBB1] text-[#051F20] py-2 rounded-lg font-semibold hover:bg-[#83D5AB] transition text-center">
+                            Ver evento
+                        </a>
                     @else
                         <button disabled class="w-full bg-gray-600 text-gray-400 py-2 rounded-lg font-semibold cursor-not-allowed">
                             Agotado

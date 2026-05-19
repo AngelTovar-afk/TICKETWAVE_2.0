@@ -15,7 +15,7 @@
     @endif
 
     {{-- FORMULARIO PRINCIPAL --}}
-    <div class="rounded-xl p-6" style="background-color:#1a3328; border:1px solid #2d6a4f;">
+    <div class="rounded-xl p-6" style="background-color:#051F20; border:1px solid #2d6a4f;">
 
         <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data" class="space-y-5">
             @csrf
@@ -115,7 +115,7 @@
     </div>
 
     {{-- BORRAR CUENTA --}}
-    <div class="rounded-xl p-6" style="background-color:#1a3328; border:1px solid #7f1d1d;">
+    <div class="rounded-xl p-6" style="background-color:#051F20; border:1px solid #7f1d1d;">
         <h2 class="text-base font-semibold mb-1" style="color:#f87171;">Borrar cuenta</h2>
         <p class="text-sm mb-4" style="color:#94a3b8;">
             Una vez que elimines tu cuenta, todos tus datos serán eliminados permanentemente.

@@ -116,6 +116,8 @@ class MiPerfil extends Page implements HasForms
         $user->update($updateData);
         $this->editando = false;
 
+        Auth::setUser($user->fresh());
+
         Notification::make()
             ->title('Perfil actualizado correctamente.')
             ->success()

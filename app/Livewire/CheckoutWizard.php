@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\Attributes\Computed;
+use App\Notifications\TicketPurchasedNotification;
 
 class CheckoutWizard extends Component
 {
@@ -143,6 +144,7 @@ class CheckoutWizard extends Component
         }
 
         $this->orderId = $order->id;
+        Auth::user()->notify(new TicketPurchasedNotification($order));
       });
 
       $this->step = 3;

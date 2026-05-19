@@ -16,7 +16,7 @@
             <p class="mb-6 text-sm" style="color:#94a3b8; max-width:320px;">
                 Encuentra y compra entradas para los mejores eventos cerca de ti.
             </p>
-            <a href="{{ route('dashboard') }}"
+            <a href="{{ route('eventos.index') }}"
                class="inline-block px-6 py-2.5 rounded-lg font-semibold text-sm transition w-fit"
                style="background-color:#4ade80; color:#0d1f1a;">
                 Explorar eventos
@@ -51,7 +51,7 @@
         </div>
 
         @if($eventos->isEmpty())
-            <div class="rounded-xl py-16 text-center" style="background-color:#1a3328; border:1px dashed #2d6a4f;">
+            <div class="rounded-xl py-16 text-center" style="background-color:#051F20; border:1px dashed #2d6a4f;">
                 <p class="text-4xl mb-3">🎟️</p>
                 <p class="font-medium text-white">No hay eventos disponibles por el momento</p>
                 <p class="text-sm mt-1" style="color:#94a3b8;">Vuelve pronto para ver nuevos eventos</p>
@@ -62,8 +62,9 @@
                     @php
                         $precio = $evento->ticketTypes->min('price');
                     @endphp
-                    <div class="rounded-xl overflow-hidden transition hover:scale-105 cursor-pointer"
-                         style="background-color:#1a3328; border:1px solid #2d6a4f;">
+                    <a href="{{ route('eventos.show', $evento) }}"
+                       class="rounded-xl overflow-hidden transition hover:scale-105 block"
+                       style="background-color:#051F20; border:1px solid #2d6a4f;">
                         {{-- Imagen --}}
                         <div class="h-36 flex items-center justify-center relative"
                              style="background: linear-gradient(135deg, #1a3d2e, #2d6a4f);">
@@ -89,7 +90,7 @@
                                 </p>
                             @endif
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
         @endif

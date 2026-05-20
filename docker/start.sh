@@ -30,5 +30,9 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
+# Ejecutar seeders solo si no existen usuarios
+echo "▶ Verificando datos iniciales..."
+php artisan db:seed --force 2>/dev/null || true
+
 echo "▶ Iniciando servicios..."
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf

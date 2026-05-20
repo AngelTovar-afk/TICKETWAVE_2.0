@@ -77,6 +77,9 @@ RUN chmod +x /start.sh
 RUN mkdir -p /var/log/supervisor \
   && mkdir -p /var/log/nginx \
   && mkdir -p /run/php
+# Eliminar conf default de Nginx
+RUN rm -f /etc/nginx/sites-enabled/default \
+  && rm -f /etc/nginx/conf.d/default.conf.original
 EXPOSE 80
 
 CMD ["/start.sh"]

@@ -7,6 +7,10 @@ echo "▶ Iniciando TicketWave..."
 mkdir -p /var/log/supervisor
 mkdir -p /var/run
 
+# Eliminar conf default de Nginx que entra en conflicto
+rm -f /etc/nginx/sites-enabled/default
+rm -f /etc/nginx/conf.d/default.conf.bak
+
 # Generar APP_KEY si no existe
 if [ -z "$APP_KEY" ]; then
     echo "⚠ APP_KEY no definida, generando..."

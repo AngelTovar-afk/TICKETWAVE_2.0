@@ -17,6 +17,11 @@ if [ -z "$APP_KEY" ]; then
     php artisan key:generate --force
 fi
 
+# Forzar HTTPS en producción
+if [ "$APP_ENV" = "production" ]; then
+    php artisan config:clear
+fi
+
 # Crear enlace simbólico de storage
 php artisan storage:link --force 2>/dev/null || true
 

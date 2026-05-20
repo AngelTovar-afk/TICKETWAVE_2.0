@@ -24,6 +24,9 @@ php artisan storage:link --force 2>/dev/null || true
 echo "▶ Ejecutando migraciones..."
 php artisan migrate --force
 
+# Publicar assets de Livewire
+php artisan livewire:publish --assets
+
 # Limpiar y optimizar caché
 php artisan optimize:clear
 php artisan config:cache

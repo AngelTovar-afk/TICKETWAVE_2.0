@@ -18,6 +18,7 @@ FROM php:8.3-fpm
 RUN apt-get update && apt-get install -y \
   nginx \
   supervisor \
+  procps \
   git \
   curl \
   libpng-dev \
@@ -51,6 +52,10 @@ WORKDIR /var/www
 
 COPY . .
 
+# Certificado SSL para Aiven
+COPY docker/ssl/ca.pem /etc/ssl/aiven/ca.pem
+RUN chmod 644 /etc/ssl/aiven/ca.pem
+
 # Assets compilados desde stage 1
 COPY --from=assets /app/public/build ./public/build
 
@@ -68,7 +73,10 @@ COPY docker/supervisor/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/php/local.ini /usr/local/etc/php/conf.d/local.ini
 COPY docker/start.sh /start.sh
 RUN chmod +x /start.sh
-
+# Crear directorios necesarios
+RUN mkdir -p /var/log/supervisor \
+  && mkdir -p /var/log/nginx \
+  && mkdir -p /run/php
 EXPOSE 80
 
 CMD ["/start.sh"]

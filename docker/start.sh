@@ -3,6 +3,10 @@ set -e
 
 echo "▶ Iniciando TicketWave..."
 
+# Crear directorios necesarios para supervisor
+mkdir -p /var/log/supervisor
+mkdir -p /var/run
+
 # Generar APP_KEY si no existe
 if [ -z "$APP_KEY" ]; then
     echo "⚠ APP_KEY no definida, generando..."

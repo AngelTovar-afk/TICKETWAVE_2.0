@@ -65,8 +65,8 @@
             <p class="text-3xl mb-3">🎫</p>
             <p class="font-semibold mb-1" style="color:#e8f5ee;">Aún no tienes boletos activos</p>
             <p class="text-sm mb-5" style="color:#7aab90;">Explora los eventos disponibles y compra tus entradas</p>
-            <a href="{{ url('/eventos') }}" class="inline-block px-6 py-2 rounded-lg font-semibold text-sm" style="background:#7fffc4; color:#0d2a1f;">
-              Ver eventos
+            <a href="{{ route('mis-boletos') }}">
+                Ver eventos
             </a>
           </div>
         </template>

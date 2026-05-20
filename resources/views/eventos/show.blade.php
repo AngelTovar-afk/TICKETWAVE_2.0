@@ -22,8 +22,9 @@
       alt="{{ $evento->name }}"
       class="w-full h-full object-cover">
     <div class="absolute inset-0 bg-[#051F20]/50"></div>
-    <a href="/"
-      class="absolute top-4 left-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 text-white hover:bg-black/60 transition text-lg">
+    {{-- DESPUÉS --}}
+    <a onclick="history.back()" 
+      class="absolute top-4 left-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/40 text-white hover:bg-black/60 transition text-lg cursor-pointer">
       ←
     </a>
   </div>

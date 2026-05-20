@@ -15,8 +15,7 @@
         <a href="/" class="text-[#83D5AB] font-bold text-xl">T<span class="text-white">icketwave</span></a>
         <div class="hidden md:flex gap-8 text-white text-sm">
             <a href="/eventos" class="text-[#83D5AB] font-semibold transition">Eventos</a>
-            <a href="#" class="hover:text-[#83D5AB] transition">Categorías</a>
-            <a href="#" class="hover:text-[#83D5AB] transition">Lugares</a>
+
         </div>
     </div>
     <div class="flex gap-3">
@@ -57,17 +56,7 @@
 <footer class="bg-[#0B2B26] border-t border-[#235347] py-10">
     <div class="max-w-6xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-6">
         <div>
-            <p class="text-white font-bold text-lg mb-2">TicketWave</p>
-        </div>
-        <div>
-            <p class="text-[#8EB69B] font-semibold mb-2">Explorar</p>
-        </div>
-        <div>
-            <p class="text-[#8EB69B] font-semibold mb-2">Información</p>
-        </div>
-        <div>
-            <p class="text-[#8EB69B] font-semibold mb-2">Empresa</p>
-        </div>
+
     </div>
     <p class="text-center mt-6 text-[#8EB69B] text-sm">@ 2026 eventos, todos los derechos reservados</p>
 </footer>

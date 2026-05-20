@@ -25,9 +25,12 @@ docs/
 README*
 
 # ─── Docker (evitar recursividad) ────────────────────────────────────────────
-docker/
 docker-compose*.yml
-Dockerfile*
+!docker/nginx/default.conf
+!docker/php/local.ini
+!docker/supervisor/supervisord.conf
+!docker/start.sh
+!docker/ssl/ca.pem
 
 # ─── IDE y herramientas locales ───────────────────────────────────────────────
 .idea/
